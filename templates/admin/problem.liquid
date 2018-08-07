@@ -1,5 +1,4 @@
 {% capture content %}
-
 {% if problem %}
 <h1>Edit Problem</h1>
 {% assign name = problem.name %}
@@ -18,11 +17,21 @@
 
     <div>
         <label for="description">Description</label><br/>
-        <textarea name="description" style="width: 100%; height: 400px;">{{ description }}</textarea>
+        <textarea name="description" id="description">{{ description }}</textarea>
     </div>
 
     <input type="submit" value="Save"/>
 </form>
+
+<script>
+    var description = document.getElementById("description");
+
+    var descriptionCodeMirror = CodeMirror.fromTextArea(description, {
+        lineNumbers: true,
+        viewportMargin: 30,
+        mode: "markdown",
+    });
+</script>
 
 {% endcapture %}
 

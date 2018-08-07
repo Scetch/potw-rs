@@ -106,3 +106,9 @@ nav li a:hover {
     color: #000000;
     text-decoration: none;
 }
+
+.CodeMirror {
+    border: 1px solid #DDD;
+    height: auto;
+    min-height: 500px;
+}

@@ -9,12 +9,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
 
-    <link href="/static/css/style.css" rel="stylesheet">
     <script src="/static/js/codemirror-5.39.2/lib/codemirror.js"></script>
     <link href="/static/js/codemirror-5.39.2/lib/codemirror.css" rel="stylesheet">
     <script src="/static/js/codemirror-5.39.2/addon/mode/simple.js"></script>
     <script src="/static/js/codemirror-5.39.2/addon/mode/loadmode.js"></script>
     <script src="/static/js/codemirror-5.39.2/mode/rust/rust.js"></script>
+    <script src="/static/js/codemirror-5.39.2/mode/markdown/markdown.js"></script>
+
+    <link href="/static/css/style.css" rel="stylesheet">
 </head>
 
 <body>
@@ -71,6 +73,7 @@
             var myCodeMirror = CodeMirror.fromTextArea(myTextArea, {
                 lineNumbers: true,
                 mode: "rust",
+                viewportMargin: Infinity,
             });
         }
     </script>
