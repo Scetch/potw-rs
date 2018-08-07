@@ -1,0 +1,21 @@
+{% capture content %}
+<h1>Leaderboard</h1>
+
+<div class="list">
+    <div class="list-item list-title">
+        User
+        <div style="float: right;">Score</div>
+    </div>
+
+    {% for user in leaderboard %}
+    <a href="/user/{{ user.sid }}/">
+        <div class="list-item">
+            {{ user.sid }}
+            <div style="float: right;">{{ user.score }}</div>
+        </div>
+    </a>
+    {% endfor %}
+</div>
+{% endcapture %}
+
+{% include 'basic.liquid' %}

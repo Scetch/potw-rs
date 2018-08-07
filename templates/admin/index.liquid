@@ -1,0 +1,75 @@
+{% capture content %}
+
+<section>
+    <h1>Admin Panel</h1>
+    <p>This panel can be used to configure settings and add problems.</p>
+</section>
+
+<section>
+    <h1>Settings</h1>
+    <p>Configurable settings</p>
+</section>
+
+<section>
+    <h1>Problems</h1>
+    <a href="./problems/create">Create Problem</a><br/><br/>
+    <div class="list">
+        {% assign len = problems | size %}
+        {% if len > 0 %}
+        {% for problem in problems %}
+
+        <div class="list-item">
+            <a href="/problems/{{ problem.id }}/">{{ problem.name }}</a>
+            <div style="float: right;">
+                <a href="./problems/{{ problem.id }}/edit">
+                    <i class="fa fa-edit"></i> Edit
+                </a>
+                <a href="./problems/{{ problem.id }}/delete">
+                    <i class="fa fa-trash"></i> Delete
+                </a>
+            </div>
+        </div>
+
+        {% endfor %}
+        {% else %}
+
+        <div class="list-item" style="text-align: center;">
+            No problems found.
+        </div>
+
+        {% endif %}
+    </div>
+</section>
+
+<section>
+    <h1>Languages</h1>
+    <a href="./languages/create">Create Language</a><br/><br/>
+    <div class="list">
+        {% assign len = languages | size %}
+        {% if len > 0 %}
+        {% for language in languages %}
+
+        <div class="list-item">
+            {{ language.name }}
+            <div style="float: right;">
+                <a href="./languages/{{ language.id }}/edit">
+                    <i class="fa fa-edit"></i> Edit
+                </a>
+                <a href="./languages/{{ language.id }}/delete">
+                    <i class="fa fa-trash"></i> Delete
+                </a>
+            </div>
+        </div>
+
+        {% endfor %}
+        {% else %}
+        <div class="list-item" style="text-align: center;">
+            No languages found.
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+{% endcapture %}
+
+{% include 'basic.liquid' %}

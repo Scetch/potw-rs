@@ -1,0 +1,20 @@
+{% capture content %}
+
+{% if language %}
+<h1>Edit Language</h1>
+{% assign name = language.name %}
+{% else %}
+<h1>New Language</h1>
+{% assign name = "" %}
+{% endif %}
+
+<form method="post" action="">
+    <div>
+        <label for="name">Name</label><br/>
+        <input type="text" name="name" value="{{ name }}"><br/>
+        <input type="submit" value="Save">
+    </div>
+</form>
+{% endcapture %}
+
+{% include 'basic.liquid' %}

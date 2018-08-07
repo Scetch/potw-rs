@@ -1,0 +1,15 @@
+{% capture content %}
+
+{% if problem %}
+<h1><a href="/problems/{{ problem.id }}/">{{ problem.name }}</a></h1>
+{{ problem.description }}
+{% else %}
+<div style="text-align: center;">
+    <h1>Whoops...</h1>
+    <p>Looks like there are no problems...</p>
+</div>
+{% endif %}
+
+{% endcapture %}
+
+{% include 'basic.liquid' %}

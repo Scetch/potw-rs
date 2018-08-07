@@ -1,0 +1,33 @@
+{% capture content %}
+
+{% assign len = user.solutions | size %}
+
+<h1>{{ user.sid }}</h1>
+<h2>{{ len }} solved.</h2>
+
+<div class="list">
+    <div class="list-item list-title">
+        Problem
+        <div style="float: right;">Language</div>
+    </div>
+
+    {% if len > 0 %}
+    {% for solution in user.solutions %}
+    <a href="/solution/{{ solution.id }}/">
+        <div class="list-item">
+            {{ solution.name }}
+            <div style="float: right;">
+                {{ solution.language }}
+            </div>
+        </div>
+    </a>
+    {% endfor %}
+    {% else %}
+    <div class="list-item" style="text-align: center;">
+        {{ user.sid }} has not completed any problems.
+    </div>
+    {% endif %}
+</div>
+{% endcapture content %}
+
+{% include 'basic.liquid' %}

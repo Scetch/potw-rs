@@ -1,0 +1,26 @@
+{% capture content %}
+<h1>Problems</h1>
+
+<div class="list">
+    {% assign len = problems | size %}
+    {% if len > 0 %}
+    {% for problem in problems %}
+
+    <a href="./{{ problem.id }}/">
+        <div class="list-item">
+            {{ problem.name }}
+        </div>
+    </a>
+
+    {% endfor %}
+    {% else %}
+
+    <div class="list-item" style="text-align: center;">
+        Whoops... looks like there are no problems.
+    </div>
+
+    {% endif %}
+</div>
+{% endcapture %}
+
+{% include 'basic.liquid' %}

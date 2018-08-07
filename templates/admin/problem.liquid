@@ -1,0 +1,29 @@
+{% capture content %}
+
+{% if problem %}
+<h1>Edit Problem</h1>
+{% assign name = problem.name %}
+{% assign description = problem.description %}
+{% else %}
+<h1>New Problem</h1>
+{% assign name = "" %}
+{% assign description = "" %}
+{% endif %}
+
+<form method="post" action="">
+    <div>
+        <label for="name">Name</label><br/>
+        <input name="name" type="text" style="width: 100%" value="{{ name }}">
+    </div>
+
+    <div>
+        <label for="description">Description</label><br/>
+        <textarea name="description" style="width: 100%; height: 400px;">{{ description }}</textarea>
+    </div>
+
+    <input type="submit" value="Save"/>
+</form>
+
+{% endcapture %}
+
+{% include 'basic.liquid' %}

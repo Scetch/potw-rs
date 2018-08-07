@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Problem of the Week</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css", rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <link href="/static/css/style.css" rel="stylesheet">
+    <script src="/static/js/codemirror-5.39.2/lib/codemirror.js"></script>
+    <link href="/static/js/codemirror-5.39.2/lib/codemirror.css" rel="stylesheet">
+    <script src="/static/js/codemirror-5.39.2/addon/mode/simple.js"></script>
+    <script src="/static/js/codemirror-5.39.2/addon/mode/loadmode.js"></script>
+    <script src="/static/js/codemirror-5.39.2/mode/rust/rust.js"></script>
+</head>
+
+<body>
+    <header class="main-header">
+        <div class="container">
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="/">Problem of the Week</a></li>
+                    <li><a href="/problems/">Problems</a></li>
+                    <li><a href="/leaderboard/">Leaderboard</a></li>
+
+                    {% capture icon %}
+                    <i class="fa fa-user" style="font-size: 14px;"></i>
+                    {% endcapture %}
+
+                    {% if current_user %}
+                    <li><a href="/user/{{ current_user.sid }}/">{{ icon }} {{ current_user.sid }}</a></li>
+                    <li><a href="/logout">Logout</a></li>
+
+                    {% if current_user.admin %}
+                    <li><a href="/admin/"><i class="fa fa-wrench" style="font-size: 18px; vertical-align: middle;"></i> Administrator</a></li>
+                    {% endif %}
+
+                    {% else  %}
+                    <li><a href="/login">{{ icon }} Log In</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container content">
+        {% if error %}
+        <div class="error">{{ error }}</div>
+        {% endif %}
+
+        {% if success %}
+        <div class="success">{{ success }}</div>
+        {% endif %}
+
+        {{ content }}
+    </div>
+
+    <footer class="main-footer">
+        <div class="container">
+            <a href="http://github.com/">Contribute on Github</a> <i class="fa fa-github" style="font-size: 40px; vertical-align: middle;"></i>
+        </div>
+    </footer>
+
+    <script>
+
+        var myTextArea = document.getElementById("code");
+        if (myTextArea != null) {
+            var myCodeMirror = CodeMirror.fromTextArea(myTextArea, {
+                lineNumbers: true,
+                mode: "rust",
+            });
+        }
+    </script>
+</body>
+</html>
