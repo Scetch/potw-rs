@@ -1,8 +1,8 @@
 use actix_web::{
-    Result, App, Responder, State,
+    Result, App, Responder, State, Path, HttpResponse,
     error::ErrorInternalServerError,
 };
-use diesel::prelude::*;
+use diesel::{ self, prelude::* };
 use liquid::{ Object, Value };
 
 use ::{
@@ -23,6 +23,8 @@ pub fn configure(app: App<AppState>) -> App<AppState> {
                 .resource("/", |r| r.with(index))
                 .nested("/languages", |s| self::languages::configure(s))
                 .nested("/problems", |s| self::problems::configure(s))
+                .resource("/promote/{id}", |r| r.with(promote))
+                .resource("/demote/{id}", |r| r.with(demote))
         })
 }
 
@@ -51,4 +53,22 @@ fn index(state: State<AppState>) -> Result<impl Responder> {
     obj.insert("languages".into(), Value::array(languages));
 
     Ok(Template::render("admin/index.liquid", obj))
+}
+
+fn promote((state, id): (State<AppState>, Path<i32>)) -> Result<impl Responder> {
+    diesel::update(user::table.filter(user::id.eq(*id)))
+        .set(user::admin.eq(true))
+        .execute(&state.db)
+        .map_err(ErrorInternalServerError)?;
+
+    Ok(HttpResponse::Found().header("location", "/admin/").finish())
+}
+
+fn demote((state, id): (State<AppState>, Path<i32>)) -> Result<impl Responder> {
+    diesel::update(user::table.filter(user::id.eq(*id)))
+        .set(user::admin.eq(false))
+        .execute(&state.db)
+        .map_err(ErrorInternalServerError)?;
+
+    Ok(HttpResponse::Found().header("location", "/admin/").finish())
 }

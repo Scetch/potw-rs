@@ -117,21 +117,21 @@ fn user((state, user): (State<AppState>, Path<String>)) -> Result<impl Responder
         .map_err(ErrorInternalServerError)?
         .ok_or_else(|| ErrorNotFound("User not found."))?;
 
-        let solutions = solution::table
-            .filter(solution::uid.eq(user.id))
-            .inner_join(language::table)
-            .inner_join(problem::table)
-            .select((solution::id, problem::name, language::name))
-            .load::<(i32, String, String)>(&state.db)
-            .map_err(ErrorInternalServerError)?
-            .into_iter()
-            .map(|(id, name, language)| {
-                let mut obj = Object::new();
-                obj.insert("id".into(), Value::scalar(id));
-                obj.insert("name".into(), Value::scalar(name));
-                obj.insert("language".into(), Value::scalar(language));
-                Value::Object(obj)
-            });
+    let solutions = solution::table
+        .filter(solution::uid.eq(user.id))
+        .inner_join(language::table)
+        .inner_join(problem::table)
+        .select((solution::id, problem::name, language::name))
+        .load::<(i32, String, String)>(&state.db)
+        .map_err(ErrorInternalServerError)?
+        .into_iter()
+        .map(|(id, name, language)| {
+            let mut obj = Object::new();
+            obj.insert("id".into(), Value::scalar(id));
+            obj.insert("name".into(), Value::scalar(name));
+            obj.insert("language".into(), Value::scalar(language));
+            Value::Object(obj)
+        });
 
     let mut user = user.to_liquid();
     user.insert("solutions".into(), Value::array(solutions));

@@ -70,6 +70,24 @@
     </div>
 </section>
 
+<section>
+    <h1>Users</h1>
+    <div class="list">
+        {% for user in users %}
+        <div class="list-item">
+            <a href="/user/{{ user.sid }}/">{{ user.sid }}</a>
+            <div style="float: right;">
+                {% if user.admin %}
+                <a href="/admin/demote/{{ user.id }}">Revoke Admin</a>
+                {% else %}
+                <a href="/admin/promote/{{ user.id }}">Promote Admin</a>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
 {% endcapture %}
 
 {% include 'basic.liquid' %}
